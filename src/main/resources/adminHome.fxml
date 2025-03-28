@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #f7e8e4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.adminHomeController">
+    <children>
+        <AnchorPane prefHeight="142.0" prefWidth="700.0" style="-fx-background-color: #523633;">
+            <children>
+                <Label layoutX="135.0" layoutY="-11.0" prefHeight="198.0" prefWidth="474.0" text="Панель администратора по управлению сотрудниками" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                    <font>
+                        <Font name="Corbel" size="33.0" />
+                    </font>
+                </Label>
+                <ImageView fitHeight="156.0" fitWidth="158.0" layoutY="14.0">
+                    <image>
+                        <Image url="@pictures/icon.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="150.0" fitWidth="200.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@pictures/icon.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </AnchorPane>
+        <Button fx:id="goBackBtn" layoutX="251.0" layoutY="547.0" mnemonicParsing="false" onAction="#returnAuthorization" prefHeight="31.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Выйти" textFill="WHITE">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Button>
+      <Button fx:id="addEmployeeBtn" layoutX="119.0" layoutY="245.0" mnemonicParsing="false" onAction="#returnAuthorization" prefHeight="31.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Добавить пользователя" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="deleteEmployeeBtn" layoutX="376.0" layoutY="245.0" mnemonicParsing="false" onAction="#returnAuthorization" prefHeight="31.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Удалить пользователя" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="editEmployeeBtn" layoutX="119.0" layoutY="300.0" mnemonicParsing="false" onAction="#returnAuthorization" prefHeight="58.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Редактировать данные пользователя" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="seeEmployeeBtn" layoutX="376.0" layoutY="300.0" mnemonicParsing="false" onAction="#returnAuthorization" prefHeight="58.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Просмотреть данные о пользователях" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="roleEmployeeBtn" layoutX="119.0" layoutY="381.0" mnemonicParsing="false" onAction="#returnAuthorization" prefHeight="58.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Назначить роль пользователю" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="accessEmployeeBtn" layoutX="376.0" layoutY="381.0" mnemonicParsing="false" onAction="#returnAuthorization" prefHeight="58.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Управление доступом к системе" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+    </children>
+</AnchorPane>
