@@ -57,6 +57,22 @@ public class EmployeeHomeController {
     }
 
     @FXML
+    public void goToSeeAllSalary(ActionEvent actionEvent) throws IOException {
+        payrollSalaryBtn.getScene().getWindow().hide();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/EmployeeSeeAllSalary.fxml"));
+        try {
+            loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    @FXML
     void initialize() {
 
     }

@@ -38,22 +38,12 @@
                 <Font size="15.0" />
             </font>
         </Button>
-        <Button fx:id="sortListBtn" layoutX="376.0" layoutY="264.0" mnemonicParsing="false" onAction="#returnAuthorization" prefHeight="58.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Сортировать список сотрудников" textAlignment="CENTER" textFill="WHITE" wrapText="true">
-            <font>
-                <Font size="15.0" />
-            </font>
-        </Button>
         <Button fx:id="workloadEmployeeBtn" layoutX="118.0" layoutY="352.0" mnemonicParsing="false" onAction="#returnAuthorization" prefHeight="58.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Определить нагрузку сотрудника" textAlignment="CENTER" textFill="WHITE" wrapText="true">
             <font>
                 <Font size="15.0" />
             </font>
         </Button>
-        <Button fx:id="findEmployeeBtn" layoutX="376.0" layoutY="352.0" mnemonicParsing="false" onAction="#returnAuthorization" prefHeight="58.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Поиск сотрудников" textAlignment="CENTER" textFill="WHITE" wrapText="true">
-            <font>
-                <Font size="15.0" />
-            </font>
-        </Button>
-      <Button fx:id="filterListBtn" layoutX="118.0" layoutY="430.0" mnemonicParsing="false" onAction="#returnAuthorization" prefHeight="58.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Фильтрация списка сотрудников" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Button fx:id="seeEmployeeBtn" layoutX="378.0" layoutY="264.0" mnemonicParsing="false" onAction="#goToSeeSortFilterFindEmployee" prefHeight="58.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Просмотреть данные сотрудников" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font size="15.0" />
          </font>

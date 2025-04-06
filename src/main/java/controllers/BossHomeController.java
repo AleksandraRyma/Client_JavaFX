@@ -22,16 +22,12 @@ public class BossHomeController {
     private URL location;
 
     @FXML
-    private Button filterListBtn;
+    private Button seeEmployeeBtn;
 
-    @FXML
-    private Button findEmployeeBtn;
 
     @FXML
     private Button goBackBtn;
 
-    @FXML
-    private Button sortListBtn;
 
     @FXML
     private Button vacationAppBtn;
@@ -62,6 +58,22 @@ public class BossHomeController {
 
     @FXML
     void initialize() {
+    }
+
+    @FXML
+    public void goToSeeSortFilterFindEmployee(ActionEvent actionEvent) throws IOException {
+        seeEmployeeBtn.getScene().getWindow().hide();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/SeeSortFindController.fxml"));
+        try {
+            loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
 }

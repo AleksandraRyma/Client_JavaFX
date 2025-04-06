@@ -33,32 +33,22 @@
                 <Font size="15.0" />
             </font>
         </Button>
-      <Button fx:id="addEmployeeBtn" layoutX="119.0" layoutY="245.0" mnemonicParsing="false" onAction="#returnAuthorization" prefHeight="31.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Добавить пользователя" textFill="WHITE">
+      <Button fx:id="addEmployeeBtn" layoutX="119.0" layoutY="245.0" mnemonicParsing="false" onAction="#goToAddEmployee" prefHeight="31.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Добавить пользователя" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Button fx:id="deleteEmployeeBtn" layoutX="376.0" layoutY="245.0" mnemonicParsing="false" onAction="#returnAuthorization" prefHeight="31.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Удалить пользователя" textFill="WHITE">
+      <Button fx:id="deleteEmployeeBtn" layoutX="376.0" layoutY="245.0" mnemonicParsing="false" onAction="#goToDeleteEmployee" prefHeight="31.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Удалить пользователя" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Button fx:id="editEmployeeBtn" layoutX="119.0" layoutY="300.0" mnemonicParsing="false" onAction="#returnAuthorization" prefHeight="58.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Редактировать данные пользователя" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Button fx:id="editEmployeeBtn" layoutX="119.0" layoutY="300.0" mnemonicParsing="false" onAction="#goToEditEmployee" prefHeight="75.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Редактировать данные пользователя (доступ и роль)" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Button fx:id="seeEmployeeBtn" layoutX="376.0" layoutY="300.0" mnemonicParsing="false" onAction="#returnAuthorization" prefHeight="58.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Просмотреть данные о пользователях" textAlignment="CENTER" textFill="WHITE" wrapText="true">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Button>
-      <Button fx:id="roleEmployeeBtn" layoutX="119.0" layoutY="381.0" mnemonicParsing="false" onAction="#returnAuthorization" prefHeight="58.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Назначить роль пользователю" textAlignment="CENTER" textFill="WHITE" wrapText="true">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Button>
-      <Button fx:id="accessEmployeeBtn" layoutX="376.0" layoutY="381.0" mnemonicParsing="false" onAction="#returnAuthorization" prefHeight="58.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Управление доступом к системе" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Button fx:id="seeEmployeeBtn" layoutX="376.0" layoutY="300.0" mnemonicParsing="false" onAction="#goToSeeEmployee" prefHeight="75.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Просмотреть данные о пользователях" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font size="15.0" />
          </font>

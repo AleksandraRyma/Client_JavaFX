@@ -12,6 +12,16 @@ public class Salary implements Serializable {
     private double net_salary;
     private String payment_date;
 
+    private double bonus_sum;
+
+    public double getBonus_sum() {
+        return bonus_sum;
+    }
+
+    public void setBonus_sum(double bonus_sum) {
+        this.bonus_sum = bonus_sum;
+    }
+
     public Salary(int salary_id, int employee_id, int position_id, int role_id, int bonus_id, int tax_percentage, double net_salary, String payment_date) {
         this.salary_id = salary_id;
         this.employee_id = employee_id;
@@ -97,4 +107,6 @@ public class Salary implements Serializable {
     public void setPayment_date(String payment_date) {
         this.payment_date = payment_date;
     }
+
+
 }

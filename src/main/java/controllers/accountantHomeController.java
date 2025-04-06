@@ -28,7 +28,7 @@ public class accountantHomeController {
     private Button evaluateFinBtn;
 
     @FXML
-    private Button findEmployeeBtn;
+    private Button seeEmployeeBtn;
 
     @FXML
     private Button goBackBtn;
@@ -62,6 +62,21 @@ public class accountantHomeController {
     @FXML
     void initialize() {
 
+    }
+    @FXML
+    public void goToSeeSortFilterFindEmployee(ActionEvent actionEvent) throws IOException {
+        seeEmployeeBtn.getScene().getWindow().hide();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/SeeSortFindController.fxml"));
+        try {
+            loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
 }

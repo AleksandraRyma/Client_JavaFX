@@ -14,6 +14,67 @@ public class Employee implements Serializable {
  private String hire_date;
  private String is_union_member;
  private int access;
+private Salary salary;
+private double work_experience;
+
+    public double getWork_experience() {
+        return work_experience;
+    }
+
+    public void setWork_experience(double work_experience) {
+        this.work_experience = work_experience;
+    }
+
+    public Salary getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Salary salary) {
+        this.salary = salary;
+    }
+
+    private String position;
+ private String role;
+ private String access_level;
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getAccess_level() {
+        return access_level;
+    }
+
+    public void setAccess_level(String access_level) {
+        this.access_level = access_level;
+    }
+
+    public Employee(int employee_id, String first_name, String last_name, String email, String login, String hire_date, String password, String is_union_member, String position, String role, String access_level) {
+        this.employee_id = employee_id;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.email = email;
+        this.login = login;
+        this.hire_date = hire_date;
+        this.password = password;
+        this.is_union_member = is_union_member;
+        this.position = position;
+        this.role = role;
+        this.access_level = access_level;
+    }
+
+
 
     public Employee() {
         this.employee_id = -1;
@@ -135,6 +196,7 @@ public class Employee implements Serializable {
         return "Employee " + employee_id + ", login=" + login + ", password=" + password +
                 " , first_name=" + first_name + ", last_name=" + last_name + ", email=" +
                 email + ", role_id=" + role_id + ", access=" + access +
-                "hire_date=" + hire_date + ", is_union_member=" + is_union_member;
+                "hire_date=" + hire_date + ", is_union_member=" + is_union_member
+                + ", position=" + position + ", position_id=" + position_id;
     }
 }

@@ -71,4 +71,12 @@ public class DialogAlert {
         alert.showAndWait();
     }
 
+    public static void showAlertInfo(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Информация");
+        alert.setHeaderText("Информационное сообщение");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 }

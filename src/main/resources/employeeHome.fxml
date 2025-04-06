@@ -43,7 +43,7 @@
                 <Font size="15.0" />
             </font>
         </Button>
-        <Button fx:id="payrollSalaryBtn" layoutX="118.0" layoutY="352.0" mnemonicParsing="false" onAction="#returnAuthorization" prefHeight="58.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Просмотреть историю начислений ЗП" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+        <Button fx:id="payrollSalaryBtn" layoutX="118.0" layoutY="352.0" mnemonicParsing="false" onAction="#goToSeeAllSalary" prefHeight="58.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Просмотреть историю начислений ЗП" textAlignment="CENTER" textFill="WHITE" wrapText="true">
             <font>
                 <Font size="15.0" />
             </font>
