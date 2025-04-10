@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Salary implements Serializable {
     private int salary_id;
@@ -11,6 +12,16 @@ public class Salary implements Serializable {
     private int tax_percentage;
     private double net_salary;
     private String payment_date;
+
+    private List<Bonus> bonusList;
+
+    public List<Bonus> getBonusList() {
+        return bonusList;
+    }
+
+    public void setBonusList(List<Bonus> bonusList) {
+        this.bonusList = bonusList;
+    }
 
     private double bonus_sum;
 

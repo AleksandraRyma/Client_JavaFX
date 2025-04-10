@@ -1,6 +1,9 @@
 package model;
 
+import javafx.beans.property.SimpleBooleanProperty;
+
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Bonus implements Serializable {
     private int bonus_id;
@@ -42,4 +45,5 @@ public class Bonus implements Serializable {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+
 }

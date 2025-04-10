@@ -13,6 +13,16 @@ public class EmployeeLoad implements Serializable {
     private int overtime_hour;
     private int difficulty_rating;
 
+    private Employee employee;
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
     public EmployeeLoad(int load_id, int employee_id, int position, int role_id, String work_load_date, int hour_worked, int overtime_hour, int difficulty_rating) {
         this.load_id = load_id;
         this.employee_id = employee_id;

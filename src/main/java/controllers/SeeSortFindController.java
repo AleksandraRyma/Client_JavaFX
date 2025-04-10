@@ -135,10 +135,10 @@ public class SeeSortFindController {
         });
 
         first_name_cl.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getFirst_name()));
+                new SimpleStringProperty(cellData.getValue().getLast_name()));
 
         last_name_cl.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getLast_name()));
+                new SimpleStringProperty(cellData.getValue().getFirst_name()));
 
         role_cl.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getRole()));
@@ -170,7 +170,7 @@ public class SeeSortFindController {
         List<Employee> employees = (List<Employee>) Connect.client.readObject();
         configureTableColumns();
         loadEmployeeData(employees);
-
+        parametreSortComboBox.setOnAction(event -> {sortDataBySalaryName();});
     }
     private void setupRadioButtons() {
         ToggleGroup group = new ToggleGroup();
@@ -204,8 +204,8 @@ public class SeeSortFindController {
         // Сброс текстового поля
         Connect.client.sendMessage("seeSortFindFilter");
         findFild.clear();
-
-        // Сброс радиокнопок
+        fromFilterValue.clear();
+        toFilterValue.clear();
         RoleRadioBtn.getToggleGroup().selectToggle(null); // Сброс выбора радиокнопок
 
         // Сброс чекбоксов
@@ -256,11 +256,80 @@ public class SeeSortFindController {
     }
 
     private void updateloadEmployeeData(List<Employee> employees) {
-        // Убедитесь, что таблица очищается перед загрузкой новых данных
         tableSeeUserAdmin.getItems().clear(); // Очистка предыдущих данных
         tableSeeUserAdmin.getItems().addAll(employees); // Добавляем новые данные
 
-        //ObservableList<Employee> observableEmployees = FXCollections.observableArrayList(employees);
-       // tableSeeUserAdmin.setItems(observableEmployees);
     }
+
+    @FXML
+    void sortDataBySalaryName(){
+        ObservableList<Employee> currentEmployees = tableSeeUserAdmin.getItems();
+        List<Employee> employeesToSort = FXCollections.observableArrayList(currentEmployees);
+        String selectedSortParameter = parametreSortComboBox.getSelectionModel().getSelectedItem();
+        if (selectedSortParameter != null) {
+            switch (selectedSortParameter) {
+                case "ЗП по возрастанию":
+                    employeesToSort.sort((e1, e2) -> Double.compare(e1.getSalary().getNet_salary(), e2.getSalary().getNet_salary()));
+                    break;
+                case "ЗП по убыванию":
+                    employeesToSort.sort((e1, e2) -> Double.compare(e2.getSalary().getNet_salary(), e1.getSalary().getNet_salary()));
+                    break;
+                case "ФИО в алфавитном порядке":
+                    employeesToSort.sort((e1, e2) -> e1.getFirst_name().compareTo(e2.getFirst_name()));
+                    break;
+            }
+        }
+        updateloadEmployeeData(employeesToSort);
+    }
+
+    @FXML
+    void filterDataBySalaryName(ActionEvent event){
+        ObservableList<Employee> currentEmployees = tableSeeUserAdmin.getItems();
+        List<Employee> employeesToFilter = FXCollections.observableArrayList(currentEmployees);
+
+        String fromDataText = fromFilterValue.getText().trim();
+        String toDataText = toFilterValue.getText().trim();
+        if(!salaryCheckBox.isSelected() && !work_exp_checkBox.isSelected()){
+            DialogAlert.showAlertInfo("Выберете параметр фильтрации");
+        }
+        if(fromDataText.isEmpty() || toDataText.isEmpty()){
+            DialogAlert.showAlertInfo("Заполните пожалуйста текстовые поля");
+        }
+        double fromData = 0, toData = 0;
+        if(!fromDataText.isEmpty())
+        {
+            fromData = Double.parseDouble(fromDataText);
+        }
+        if(!toDataText.isEmpty())
+        {
+            toData = Double.parseDouble(toDataText);
+        }
+        if (salaryCheckBox.isSelected()) {
+            for (int i = employeesToFilter.size() - 1; i >= 0; i--) {
+                Employee employee = employeesToFilter.get(i);
+                double salary = employee.getSalary().getNet_salary();
+                if (salary < fromData || salary > toData) {
+                    employeesToFilter.remove(i);
+                }
+            }
+        }
+
+        if (work_exp_checkBox.isSelected()) {
+            for (int i = employeesToFilter.size() - 1; i >= 0; i--) {
+                Employee employee = employeesToFilter.get(i);
+                double experience = employee.getWork_experience();
+                if (experience < fromData || experience > toData) {
+                    employeesToFilter.remove(i);
+                }
+            }
+        }
+        if (employeesToFilter.isEmpty()) {
+            DialogAlert.showAlertInfo("Ничего не найдено");
+        }
+        else {
+            updateloadEmployeeData(employeesToFilter);
+        }
+    }
+
+
 }

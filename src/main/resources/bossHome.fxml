@@ -33,12 +33,12 @@
                 <Font size="15.0" />
             </font>
         </Button>
-        <Button fx:id="vacationAppBtn" layoutX="118.0" layoutY="264.0" mnemonicParsing="false" onAction="#returnAuthorization" prefHeight="58.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Рассмотреть заявку на отпуск" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+        <Button fx:id="vacationAppBtn" layoutX="118.0" layoutY="264.0" mnemonicParsing="false" onAction="#goToSeeApplicationVacation" prefHeight="58.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Рассмотреть заявку на отпуск" textAlignment="CENTER" textFill="WHITE" wrapText="true">
             <font>
                 <Font size="15.0" />
             </font>
         </Button>
-        <Button fx:id="workloadEmployeeBtn" layoutX="118.0" layoutY="352.0" mnemonicParsing="false" onAction="#returnAuthorization" prefHeight="58.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Определить нагрузку сотрудника" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+        <Button fx:id="workloadEmployeeBtn" layoutX="118.0" layoutY="352.0" mnemonicParsing="false" onAction="#goToWorkLoad" prefHeight="58.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Определить нагрузку сотрудника" textAlignment="CENTER" textFill="WHITE" wrapText="true">
             <font>
                 <Font size="15.0" />
             </font>

@@ -44,7 +44,7 @@
                                 <TableColumn fx:id="last_name_cl" prefWidth="97.59999084472656" text="Имя" />
                                 <TableColumn fx:id="role_cl" prefWidth="108.0" text="Роль" />
                                 <TableColumn fx:id="work_experience_cl" prefWidth="111.19998168945312" text="Стаж работы(м)" />
-                        <TableColumn fx:id="salary_cl" prefWidth="88.0" text="Зарплата" />
+                        <TableColumn fx:id="salary_cl" prefWidth="88.0" text="Средняя ЗП" />
                             </columns>
                         </TableView>
                </children>
@@ -99,7 +99,7 @@
             <Font size="15.0" />
          </font>
       </CheckBox>
-      <Button fx:id="applyBtn" layoutX="540.0" layoutY="188.0" mnemonicParsing="false" onAction="#returnMainMenuAdmin" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: #523633;" text="Применить" textFill="WHITE">
+      <Button fx:id="applyBtn" layoutX="545.0" layoutY="188.0" mnemonicParsing="false" onAction="#filterDataBySalaryName" prefHeight="31.0" prefWidth="143.0" style="-fx-background-color: #523633;" text="Применить" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>

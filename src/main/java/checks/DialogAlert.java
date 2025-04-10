@@ -21,7 +21,15 @@ public class DialogAlert {
         alert.setHeaderText("Ошибка: Регистрация");
         String message = String.valueOf(meg);
         alert.setContentText(message);
-       // alert.setContentText("Такой пользователь уже существует!\nПридумайте пожалуйста другой логин");
+        alert.showAndWait();
+    }
+
+    public static void showAlertObj(Object meg){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Ошибка");
+        alert.setHeaderText("Ошибка: Действие не выполнено");
+        String message = String.valueOf(meg);
+        alert.setContentText(message);
         alert.showAndWait();
     }
 

@@ -4,32 +4,40 @@ import java.io.Serializable;
 
 public class Vacation implements Serializable {
     private int vacation_id;
-    private int employee_id;
     private int position_id;
     private int role_id;
     private String start_date;
     private String end_date;
-    private String status;
 
-    public Vacation(int vacation_id, int employee_id, int role_id, int position_id, String end_date, String start_date, String status) {
+    private Status status;
+    private Employee employee;
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Vacation(int vacation_id, int role_id, int position_id, String end_date, String start_date) {
         this.vacation_id = vacation_id;
-        this.employee_id = employee_id;
         this.role_id = role_id;
         this.position_id = position_id;
         this.end_date = end_date;
         this.start_date = start_date;
-        this.status = status;
+
     }
 
 
     public Vacation() {
         this.vacation_id = -1;
-        this.employee_id = -1;
         this.role_id = -1;
         this.position_id = -1;
         this.end_date = "";
         this.start_date = "";
-        this.status = "";
+        status = new Status();
+        employee = new Employee();
     }
 
     public int getVacation_id() {
@@ -40,12 +48,12 @@ public class Vacation implements Serializable {
         this.vacation_id = vacation_id;
     }
 
-    public int getEmployee_id() {
-        return employee_id;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setEmployee_id(int employee_id) {
-        this.employee_id = employee_id;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     public int getPosition_id() {
@@ -79,12 +87,8 @@ public class Vacation implements Serializable {
     public void setEnd_date(String end_date) {
         this.end_date = end_date;
     }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    @Override
+    public String toString() {
+        return "start_date = " + start_date + " end_date = " + end_date + "status_name" + status.getStatus_name();
     }
 }

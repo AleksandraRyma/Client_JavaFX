@@ -73,6 +73,22 @@ public class EmployeeHomeController {
     }
 
     @FXML
+    public void goToVacationApplication(ActionEvent actionEvent) throws IOException {
+        vacationAppBtn.getScene().getWindow().hide();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/employeeVacationController.fxml"));
+        try {
+            loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    @FXML
     void initialize() {
 
     }

@@ -71,7 +71,7 @@ public class AuthorizationController {
             //
             authSigninButton.getScene().getWindow().hide();
             FXMLLoader loader = new FXMLLoader();
-            SessionManager.setCurrentUser(employee);
+            SessionManager.setCurrentUser(authenticatedEmployee);
             SessionManager.setSessionEmpId(authenticatedEmployee.getEmployee_id());
             SessionManager.setSessionRoleId(authenticatedEmployee.getRole_id());
             if(authenticatedEmployee.getRole_id() == 1)
