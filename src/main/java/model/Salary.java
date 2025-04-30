@@ -119,5 +119,8 @@ public class Salary implements Serializable {
         this.payment_date = payment_date;
     }
 
-
+    @Override
+    public String toString() {
+        return net_salary + " " + payment_date;
+    }
 }

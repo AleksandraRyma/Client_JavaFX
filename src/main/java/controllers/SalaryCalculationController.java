@@ -1,5 +1,8 @@
 package controllers;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -10,8 +13,12 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 import ClientWork.Connect;
+import PatternDecorater.BaseSalaryCalculator;
+import PatternDecorater.SalaryCalculator;
+import PatternDecorater.UnionNewYearBonusDecorator;
 import checks.DialogAlert;
 import experience.SalaryRecord;
+import experience.SessionManager;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -30,6 +37,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import model.*;
+import org.apache.poi.xwpf.usermodel.*;
 
 public class SalaryCalculationController {
 
@@ -150,8 +158,10 @@ public class SalaryCalculationController {
 
     private List<Salary> salaryEmployeee = new ArrayList<>();
 
-    private ObservableList<SalaryRecord> salaryRecords = FXCollections.observableArrayList();
+    private List<SalaryRecord> SalaryRecordForReport = new ArrayList<>();
 
+    private ObservableList<SalaryRecord> salaryRecords = FXCollections.observableArrayList();
+    private int goToExitWithOutSAve = 1;
     @FXML
     void collectDataFromFormToAddVacation(ActionEvent event) {
 
@@ -159,18 +169,25 @@ public class SalaryCalculationController {
 
     @FXML
     void returnMainMenuAdmin(ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader();
-        goBackBtn.getScene().getWindow().hide();
-        loader.setLocation(getClass().getResource("/accountantHome.fxml"));
-        try {
-            loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if(goToExitWithOutSAve == 0)
+        {
+           DialogAlert.showAlertInfo("Сохраните данные!");
         }
-        Parent root = loader.getRoot();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
+        else {
+            FXMLLoader loader = new FXMLLoader();
+            goBackBtn.getScene().getWindow().hide();
+            loader.setLocation(getClass().getResource("/accountantHome.fxml"));
+            try {
+                loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Parent root = loader.getRoot();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+
     }
 
     @FXML
@@ -392,7 +409,7 @@ public class SalaryCalculationController {
                 new SimpleDoubleProperty(cellData.getValue().getNetSalary()).asObject());
     }
     public void addRecordAboutSalary(ActionEvent event) {
-
+        goToExitWithOutSAve = 0;
         System.out.println("addRecordAboutSalary");
         List<Bonus> bonuses = getSelectedBonuses();
         if (bonuses.isEmpty()) {
@@ -419,9 +436,71 @@ public class SalaryCalculationController {
         }
         clearFields();
     }
-    private void loadSalaryFromData() {
+
+    private void loadSalaryFromDataDecorator() {
         SalaryRecord salaryRecord = new SalaryRecord();
         salaryRecord.setFirstName(lastNameText1.getText());
+        salaryRecord.setEmployeeID(idEmplComboBox.getValue());
+
+        String baseSalaryText = baseSalaryText1.getText().replace(',', '.');
+        double baseSalaryFromTextField = 0.0;
+        try {
+            baseSalaryFromTextField = Double.parseDouble(baseSalaryText);
+            salaryRecord.setBaseSalary(baseSalaryFromTextField);
+        } catch (NumberFormatException e) {
+            System.out.println("Некорректный ввод базовой зарплаты: " + baseSalaryText);
+            salaryRecord.setBaseSalary(0.0);
+        }
+
+        List<Bonus> bonuses = getSelectedBonuses();
+        double totalBonus = 0.0;
+        for (Bonus bonus : bonuses) {
+            totalBonus += bonus.getAmount() * baseSalaryFromTextField;
+        }
+        salaryRecord.setTotalBonus(totalBonus);
+
+        String vacationSalary = vacationText.getText().replace(',', '.');
+        double vacationBonus = 0.0;
+        if (!vacationSalary.equals("Нет")) {
+            vacationBonus = Double.parseDouble(vacationSalary);
+        }
+        salaryRecord.setVacationBonus(vacationBonus);
+
+        int taxPercent = yesUnionMember.isSelected() ? 15 : 14;
+        salaryRecord.setTaxPercentage(taxPercent);
+
+        int employeeId = idEmplComboBox.getValue();
+       // Employee employee = getEmployeeById(employeeId);
+        String paymentDate = currentDate.getText();
+
+        // Расчёт с использованием декоратора
+        SalaryCalculator calculator = new BaseSalaryCalculator(
+                salaryRecord.getBaseSalary(),
+                salaryRecord.getTotalBonus(),
+                salaryRecord.getVacationBonus(),
+                salaryRecord.getTaxPercentage()
+        );
+       // calculator = new UnionNewYearBonusDecorator(calculator, employee, paymentDate);
+        double finalSalary = calculator.calculateSalary();
+        salaryRecord.setNetSalary(finalSalary);
+
+        Salary salaryToAdd = new Salary();
+        salaryToAdd.setNet_salary(finalSalary);
+        salaryToAdd.setTax_percentage(taxPercent);
+        salaryToAdd.setPayment_date(paymentDate);
+        salaryToAdd.setEmployee_id(employeeId);
+
+        salaryEmployeee.add(salaryToAdd);
+        SalaryRecordForReport.add(salaryRecord);
+        salaryRecords.add(salaryRecord);
+
+        tableSeeUserAdmin.setItems(salaryRecords);
+    }
+
+
+   private void loadSalaryFromData() {
+        SalaryRecord salaryRecord = new SalaryRecord();
+        salaryRecord.setFirstName(firstNameText.getText());
 System.out.println(salaryRecord.getFirstName());
 salaryRecord.setEmployeeID(idEmplComboBox.getValue());
         // Преобразуем строку базовой зарплаты
@@ -466,6 +545,7 @@ salaryRecord.setEmployeeID(idEmplComboBox.getValue());
         DecimalFormat df = new DecimalFormat("#0.00"); // Формат с двумя знаками после запятой
         String formattedFinalSalary = df.format(finalSalary); // Форматируем значение как строку
         salaryRecord.setNetSalary(finalSalary);
+        SalaryRecordForReport.add(salaryRecord);
         System.out.println(salaryRecord.getNetSalary());
         Salary salaruToAdd = new Salary();
         salaruToAdd.setNet_salary(salaryRecord.getNetSalary());
@@ -496,11 +576,161 @@ salaryRecord.setEmployeeID(idEmplComboBox.getValue());
 
     @FXML
     void saveSalaryToServer(ActionEvent event) {
+        goToExitWithOutSAve = 1;
         Connect.client.sendMessage("saveSalaryToServer");
         Connect.client.sendObject(salaryEmployeee);
+        generateSalaryReport();
+        generateSalaryReportWord();
         salaryEmployeee.clear();
+        SalaryRecordForReport.clear();
         DialogAlert.showAlertInfo("Данные сохранены");
     }
 
 
+    public void generateSalaryReport() {
+        String filePath = "SalaryReport.txt"; // Путь к файлу
+        DecimalFormat df = new DecimalFormat("#.00");
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            writer.write("\t\t\t\t\t\t\t\tОтчет о зарплатах");
+            writer.newLine();
+
+            String reportDate = LocalDate.now().toString();
+            writer.write("Дата составления отчета: " + reportDate);
+            writer.newLine();
+            writer.newLine();
+
+            writer.write(String.format("%-5s | %-20s | %-12s | %-22s | %-12s | %-15s | %-12s",
+                    "№", "Фамилия", "Налог, %", "Должностной оклад, BYN",
+                    "Премия, BYN", "Отпускные, BYN", "ЗП, BYN"));
+            writer.newLine();
+
+            writer.write("-----------------------------------------------------------------------------------------------------------------------");
+            writer.newLine();
+
+            double totalSalary = 0;
+            double totalBonuses = 0;
+            int i = 1;
+
+            for (SalaryRecord records : SalaryRecordForReport) {
+                String baseSalary = df.format(records.getBaseSalary());
+                String totalBonus = (records.getTotalBonus() == 0) ? "0.00" : df.format(records.getTotalBonus());
+                String vacationBonus = (records.getVacationBonus() == 0) ? "0.00" : df.format(records.getVacationBonus());
+                String netSalary = df.format(records.getNetSalary());
+
+                writer.write(String.format("%-5d | %-20s | %-12d | %-22s | %-12s | %-15s | %-12s",
+                        i,
+                        records.getFirstName(),
+                        records.getTaxPercentage(),
+                        baseSalary,
+                        totalBonus,
+                        vacationBonus,
+                        netSalary));
+                writer.newLine();
+                i++;
+
+                totalSalary += records.getNetSalary();
+                totalBonuses += records.getTotalBonus(); // Считаем общую премию
+            }
+            writer.write("-----------------------------------------------------------------------------------------------------------------------");
+            writer.newLine();
+
+            writer.write(String.format("Итоговые выплаты:\nКоличество человек: %d\nОбщая сумма для премии: %.2f\nОбщая зарплата: %.2f",
+                    salaryEmployeee.size(), totalBonuses, totalSalary));
+            writer.newLine();
+
+            System.out.println("Отчет создан: " + filePath);
+        } catch (IOException e) {
+            System.err.println("Ошибка при создании отчета: " + e.getMessage());
+        }
+    }
+    //SalaryRecordForReport
+    public void generateSalaryReportWord() {
+        String filePath = "SalaryReportWord.docx"; // Путь к файлу
+        DecimalFormat df = new DecimalFormat("#.00");
+
+        try (XWPFDocument document = new XWPFDocument()) {
+            // Создаем заголовок отчета
+            XWPFParagraph title = document.createParagraph();
+            title.setAlignment(ParagraphAlignment.CENTER);
+            title.createRun().setText("Отчет о зарплатах");
+
+            // Дата отчета
+            String reportDate = LocalDate.now().toString();
+            XWPFParagraph dateParagraph = document.createParagraph();
+            dateParagraph.setAlignment(ParagraphAlignment.LEFT);
+            dateParagraph.createRun().setText("Дата составления отчета: " + reportDate);
+
+            // Добавляем пустую строку
+            document.createParagraph();
+
+            // Создаем таблицу для отчета
+            XWPFTable table = document.createTable();
+
+            // Создаем строку заголовков таблицы
+            XWPFTableRow headerRow = table.getRow(0);
+            headerRow.getCell(0).setText("№");
+            headerRow.addNewTableCell().setText("Фамилия");
+            headerRow.addNewTableCell().setText("Налог, %");
+            headerRow.addNewTableCell().setText("Должностной оклад, BYN");
+            headerRow.addNewTableCell().setText("Премия, BYN");
+            headerRow.addNewTableCell().setText("Отпускные, BYN");
+            headerRow.addNewTableCell().setText("ЗП, BYN");
+
+            // Применяем стиль к заголовкам
+            for (XWPFTableCell cell : headerRow.getTableCells()) {
+
+                cell.setColor("A9A9A9"); // Устанавливаем светло-серый фон для заголовков
+            }
+
+            // Добавляем строки с данными
+            double totalSalary = 0;
+            double totalBonuses = 0;
+            int i = 1;
+
+            for (SalaryRecord record : SalaryRecordForReport) {
+                XWPFTableRow row = table.createRow();
+
+                // Добавляем данные в ячейки
+                row.getCell(0).setText(String.valueOf(i));
+                row.getCell(1).setText(record.getFirstName());
+                row.getCell(2).setText(String.valueOf(record.getTaxPercentage()));
+
+                String baseSalary = df.format(record.getBaseSalary());
+                row.getCell(3).setText(baseSalary);
+
+                String totalBonus = (record.getTotalBonus() == 0) ? "0.00" : df.format(record.getTotalBonus());
+                row.getCell(4).setText(totalBonus);
+
+                String vacationBonus = (record.getVacationBonus() == 0) ? "0.00" : df.format(record.getVacationBonus());
+                row.getCell(5).setText(vacationBonus);
+
+                String netSalary = df.format(record.getNetSalary());
+                row.getCell(6).setText(netSalary);
+
+                totalSalary += record.getNetSalary();
+                totalBonuses += record.getTotalBonus();
+                i++;
+            }
+
+            // Добавляем строку с итогами
+            XWPFTableRow totalRow = table.createRow();
+            totalRow.getCell(0).setText("");
+            totalRow.getCell(1).setText("");
+            totalRow.getCell(2).setText("");
+            totalRow.getCell(3).setText("");
+            totalRow.getCell(4).setText("");
+            totalRow.getCell(5).setText("");
+            totalRow.getCell(6).setText(String.format("Итоговая зарплата: %.2f\nОбщая премия: %.2f", totalSalary, totalBonuses));
+
+            // Сохраняем файл
+            try (FileOutputStream out = new FileOutputStream(filePath)) {
+                document.write(out);
+            }
+
+            System.out.println("Отчет создан: " + filePath);
+        } catch (IOException e) {
+            System.err.println("Ошибка при создании отчета: " + e.getMessage());
+        }
+    }
 }

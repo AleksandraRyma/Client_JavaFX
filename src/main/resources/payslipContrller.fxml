@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #f7e8e4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PayslipContrller">
+    <children>
+        <AnchorPane prefHeight="46.0" prefWidth="700.0" style="-fx-background-color: #523633;">
+            <children>
+                <Label layoutX="262.0" prefHeight="54.0" prefWidth="218.0" text="Расчётный лист" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                    <font>
+                        <Font size="28.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <TextField fx:id="first_nameText" layoutX="97.0" layoutY="102.0" prefHeight="31.0" prefWidth="187.0" promptText="Фамилия">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </TextField>
+        <Label fx:id="first_name_label" layoutX="23.0" layoutY="95.0" prefHeight="46.0" prefWidth="92.0" text="Фамилия:">
+            <font>
+                <Font name="Corbel" size="15.0" />
+            </font>
+        </Label>
+        <Button fx:id="goOut" layoutX="207.0" layoutY="554.0" mnemonicParsing="false" onAction="#returnMainMenuAdmin" prefHeight="31.0" prefWidth="286.0" style="-fx-background-color: #523633;" text="Вернуться назад" textAlignment="CENTER" textFill="WHITE">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Button>
+      <Label layoutX="285.0" layoutY="54.0" prefHeight="46.0" prefWidth="150.0" text="Общие сведения">
+         <font>
+            <Font name="Corbel" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="last_name_label" layoutX="304.0" layoutY="94.0" prefHeight="46.0" prefWidth="39.0" text="Имя:">
+         <font>
+            <Font name="Corbel" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="last_nameText" layoutX="385.0" layoutY="102.0" prefHeight="31.0" prefWidth="187.0" promptText="Имя">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <Label fx:id="id_label" layoutX="23.0" layoutY="139.0" prefHeight="46.0" prefWidth="122.0" text="Табельный номер:">
+         <font>
+            <Font name="Corbel" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="id_text" layoutX="150.0" layoutY="146.0" prefHeight="31.0" prefWidth="86.0" promptText="Номер">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <Label fx:id="position_label" layoutX="299.0" layoutY="139.0" prefHeight="46.0" prefWidth="86.0" text="Должность:">
+         <font>
+            <Font name="Corbel" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="posiion_text" layoutX="385.0" layoutY="146.0" prefHeight="31.0" prefWidth="187.0" promptText="Должность">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="23.0" layoutY="177.0" prefHeight="46.0" prefWidth="122.0" text="Период расчета:">
+         <font>
+            <Font name="Corbel" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="text_month_date" layoutX="142.0" layoutY="184.0" prefHeight="31.0" prefWidth="157.0" promptText="Дата">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="133.0" layoutY="223.0" prefHeight="46.0" prefWidth="114.0" text="Начисления">
+         <font>
+            <Font name="Corbel" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="base_salary_label" layoutX="23.0" layoutY="267.0" prefHeight="46.0" prefWidth="175.0" text="Должностной  оклад, BYN:">
+         <font>
+            <Font name="Corbel" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="23.0" layoutY="300.0" prefHeight="46.0" prefWidth="158.0" text="Премия/надбавки, BYN:">
+         <font>
+            <Font name="Corbel" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="base_salary_number" layoutX="214.0" layoutY="274.0" prefHeight="31.0" prefWidth="142.0" promptText="Оклад">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="bonus_number" layoutX="214.0" layoutY="307.0" prefHeight="31.0" prefWidth="142.0" promptText="Премия">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="439.0" layoutY="223.0" prefHeight="46.0" prefWidth="107.0" text="Удержания">
+         <font>
+            <Font name="Corbel" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="370.0" layoutY="267.0" prefHeight="46.0" prefWidth="86.0" text="ПНФЛ, 13%:">
+         <font>
+            <Font name="Corbel" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tax13_number" layoutX="577.0" layoutY="274.0" prefHeight="31.0" prefWidth="107.0" promptText="Подоходный налог">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="370.0" layoutY="299.0" prefHeight="46.0" prefWidth="206.0" text="Взнос в пенсионный фонд, 1%:">
+         <font>
+            <Font name="Corbel" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tax1_pencia_number" layoutX="577.0" layoutY="308.0" prefHeight="31.0" prefWidth="107.0" promptText="Фонд">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <Label fx:id="profcous_label" layoutX="368.0" layoutY="334.0" prefHeight="46.0" prefWidth="142.0" text="Член профсоюза, 1%:">
+         <font>
+            <Font name="Corbel" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tax_profcom" layoutX="577.0" layoutY="343.0" prefHeight="31.0" prefWidth="107.0" promptText="Профсоюз">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="319.0" layoutY="380.0" prefHeight="46.0" prefWidth="61.0" text="Итого">
+         <font>
+            <Font name="Corbel" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="23.0" layoutY="414.0" prefHeight="46.0" prefWidth="218.0" text="Общая сумма начислений, BYN:">
+         <font>
+            <Font name="Corbel" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="370.0" layoutY="413.0" prefHeight="46.0" prefWidth="206.0" text="Общая сумма удержаний, BYN:">
+         <font>
+            <Font name="Corbel" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="summa_bonus" layoutX="241.0" layoutY="421.0" prefHeight="31.0" prefWidth="114.0" promptText="Сумма">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="summa_tax" layoutX="578.0" layoutY="418.0" prefHeight="31.0" prefWidth="107.0" promptText="Удержания">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="18.0" layoutY="463.0" prefHeight="46.0" prefWidth="101.0" text="К выплате:">
+         <font>
+            <Font name="Corbel" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="net_salary_number" layoutX="157.0" layoutY="470.0" prefHeight="31.0" prefWidth="114.0" promptText="ЗП">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="17.0" layoutY="501.0" prefHeight="46.0" prefWidth="133.0" text="Дата выплаты:">
+         <font>
+            <Font name="Corbel" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="date_text" layoutX="157.0" layoutY="508.0" prefHeight="31.0" prefWidth="114.0" promptText="дата выплаты">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <Line endX="588.199951171875" endY="-1.52587890625E-5" layoutX="115.0" layoutY="223.0" startX="-115.00000762939453" startY="-1.52587890625E-5" stroke="#523633" />
+      <Line endX="588.199951171875" endY="-1.52587890625E-5" layoutX="113.0" layoutY="389.0" startX="-115.00000762939453" startY="-1.52587890625E-5" stroke="#523633" />
+      <Line endX="237.300048828125" endY="155.5" layoutX="125.0" layoutY="233.0" startX="237.30007934570312" startY="-9.500015258789062" stroke="#523633" />
+    </children>
+</AnchorPane>

@@ -69,8 +69,8 @@ public class RegistrationControllerEmp {
     @FXML
     public void registrationSuccesswd(ActionEvent actionEvent) throws IOException {
         Employee employee = new Employee();
-        employee.setFirst_name(name_employee.getText());
-        employee.setLast_name(surname_employee.getText());
+        employee.setFirst_name(surname_employee.getText());
+        employee.setLast_name(name_employee.getText());
 
         LocalDate hireDate = hire_date_employee.getValue();
         String hireDateStr = (hireDate != null) ? hireDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : "Не указано";

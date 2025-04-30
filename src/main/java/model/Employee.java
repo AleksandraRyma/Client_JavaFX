@@ -3,19 +3,36 @@ package model;
 import java.io.Serializable;
 
 public class Employee implements Serializable {
- private int employee_id;
- private int position_id;
- private int role_id;
- private String first_name;
- private String last_name;
- private String email;
- private String login;
- private String password;
- private String hire_date;
- private String is_union_member;
- private int access;
-private Salary salary;
-private double work_experience;
+    private int employee_id;
+    private int position_id;
+    private int role_id;
+    private String first_name;
+    private String last_name;
+    private String email;
+    private String login;
+    private String password;
+    private String hire_date;
+    private String is_union_member;
+    private int access;
+
+    private String position;
+    private String role;
+    private String access_level;
+
+    private Salary salary;
+
+    private Position position_empl;
+    private double work_experience;
+
+    public Position getPosition_empl() {
+        return position_empl;
+    }
+
+    public void setPosition_empl(Position position_empl) {
+        this.position_empl = position_empl;
+    }
+
+
 
     public double getWork_experience() {
         return work_experience;
@@ -33,9 +50,6 @@ private double work_experience;
         this.salary = salary;
     }
 
-    private String position;
- private String role;
- private String access_level;
     public String getPosition() {
         return position;
     }
@@ -75,7 +89,6 @@ private double work_experience;
     }
 
 
-
     public Employee() {
         this.employee_id = -1;
         this.position_id = -1;
@@ -87,7 +100,9 @@ private double work_experience;
         this.password = "";
         this.hire_date = "";
         this.is_union_member = "";
-        this.access = 0;
+        this.access = -1;
+        salary = new Salary();
+        position_empl = new Position();
     }
 
     public Employee(int employee_id, int position_id, int role_id, String first_name, String last_name, String email, String login, String password, String hire_date, String is_union_member, int access) {
@@ -102,6 +117,14 @@ private double work_experience;
         this.hire_date = hire_date;
         this.is_union_member = is_union_member;
         this.access = access;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee " + employee_id + ", login=" + login + ", password=" + password
+                + ", role=" + role + ", access=" + access + ", access_level=" + access_level
+                + ", role_id=" + role_id + ", access=" + access + ", access_level=" + access_level
+                + ", position=" + position + ", position_id=" + position_id + "first_name" + first_name+ "\n";
     }
 
     public int getEmployee_id() {
@@ -190,13 +213,5 @@ private double work_experience;
 
     public void setAccess(int access) {
         this.access = access;
-    }
-    @Override
-    public String toString() {
-        return "Employee " + employee_id + ", login=" + login + ", password=" + password +
-                " , first_name=" + first_name + ", last_name=" + last_name + ", email=" +
-                email + ", role_id=" + role_id + ", access=" + access +
-                "hire_date=" + hire_date + ", is_union_member=" + is_union_member
-                + ", position=" + position + ", position_id=" + position_id;
     }
 }

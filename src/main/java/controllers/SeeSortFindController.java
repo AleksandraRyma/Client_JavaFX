@@ -135,10 +135,10 @@ public class SeeSortFindController {
         });
 
         first_name_cl.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getLast_name()));
+                new SimpleStringProperty(cellData.getValue().getFirst_name()));
 
         last_name_cl.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getFirst_name()));
+                new SimpleStringProperty(cellData.getValue().getLast_name()));
 
         role_cl.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getRole()));

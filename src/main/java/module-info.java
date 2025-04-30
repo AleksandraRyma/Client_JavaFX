@@ -3,7 +3,8 @@ module com.example.client_javafx {
     requires javafx.fxml;
     requires javafx.base;
     requires javafx.graphics;
-    requires java.desktop;
+    requires org.apache.poi.ooxml;
+    requires java.datatransfer;
 
 
     opens main to javafx.fxml;

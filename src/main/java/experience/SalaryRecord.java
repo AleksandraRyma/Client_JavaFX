@@ -8,6 +8,15 @@ public class SalaryRecord {
     private double netSalary;
     private int taxPercentage;
     private int employeeID;
+    private String paymentDate;
+
+    public String getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(String paymentDate) {
+        this.paymentDate = paymentDate;
+    }
 
     public int getEmployeeID() {
         return employeeID;

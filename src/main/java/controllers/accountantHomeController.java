@@ -94,4 +94,21 @@ public class accountantHomeController {
         stage.show();
     }
 
+    @FXML
+    public void goToFinanceCharts(ActionEvent actionEvent) throws IOException {
+        seeEmployeeBtn.getScene().getWindow().hide();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/financeGraphicsController.fxml"));
+        try {
+            loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+
 }

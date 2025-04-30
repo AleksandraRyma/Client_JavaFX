@@ -113,40 +113,40 @@ public class AdminEditController {
         role_cl.setCellFactory(col -> createComboBoxCell(
                 new String[]{"руководитель отдела", "администратор", "бухгалтер", "сотрудник"},
                 (employee, value) -> {
-                    employee.setRole(value); // сохраняем имя роли
-
-                    // 👇 вручную устанавливаем ID по названию
-                    if (value.equals("руководитель отдела")) {
-                        employee.setRole_id(2);
-                    } else if (value.equals("администратор")) {
-                        employee.setRole_id(1);
-                    } else if (value.equals("бухгалтер")) {
-                        employee.setRole_id(3);
-                    } else if (value.equals("сотрудник")) {
-                        employee.setRole_id(4);
+                    if (!value.equals(employee.getRole())) {
+                        employee.setRole(value);
+                        switch (value) {
+                            case "руководитель отдела" -> employee.setRole_id(2);
+                            case "администратор" -> employee.setRole_id(1);
+                            case "бухгалтер" -> employee.setRole_id(3);
+                            case "сотрудник" -> employee.setRole_id(4);
+                        }
                     }
                 }
         ));
-
+        for (Employee employee : observableList) { // Цикл для установки role_id
+            switch (employee.getRole()) {
+                case "руководитель отдела" -> employee.setRole_id(2);
+                case "администратор" -> employee.setRole_id(1);
+                case "бухгалтер" -> employee.setRole_id(3);
+                case "сотрудник" -> employee.setRole_id(4);
+                default -> employee.setRole_id(-1); // Устанавливаем значение по умолчанию, если роль неизвестна
+            }
+        }
         position_cl.setCellFactory(col -> createComboBoxCell(
                 new String[]{"Генеральный директор", "Главный бухгалтер", "Стажер бухгалтера",
                         "Менеджер по финансовым операциям", "Главный экономист", "Администратор"},
                 (employee, value) -> {
-                    employee.setPosition(value); // сохраняем имя позиции
-
-                    // 👇 вручную устанавливаем ID по названию
-                    if (value.equals("Генеральный директор")) {
-                        employee.setPosition_id(1);
-                    } else if (value.equals("Главный бухгалтер")) {
-                        employee.setPosition_id(2);
-                    } else if (value.equals("Стажер бухгалтера")) {
-                        employee.setPosition_id(3);
-                    } else if (value.equals("Менеджер по финансовым операциям")) {
-                        employee.setPosition_id(4);
-                    } else if (value.equals("Главный экономист")) {
-                        employee.setPosition_id(5);
-                    } else if (value.equals("Администратор")) {
-                        employee.setPosition_id(6);
+                    if (!value.equals(employee.getPosition())) {
+                        employee.setPosition(value);
+                        switch (value) {
+                            case "Генеральный директор" -> employee.setPosition_id(1);
+                            case "Главный бухгалтер" -> employee.setPosition_id(2);
+                            case "Стажер бухгалтера" -> employee.setPosition_id(3);
+                            case "Менеджер по финансовым операциям" -> employee.setPosition_id(4);
+                            case "Главный экономист" -> employee.setPosition_id(5);
+                            case "Администратор" -> employee.setPosition_id(6);
+                        }
                     }
                 }
         ));
@@ -156,6 +156,7 @@ public class AdminEditController {
     private TableCell<Employee, String> createComboBoxCell(String[] options, BiConsumer<Employee, String> assignFunction) {
         return new TableCell<Employee, String>() {
             private ComboBox<String> comboBox;
+            private boolean updating = false;
 
             @Override
             protected void updateItem(String item, boolean empty) {
@@ -168,21 +169,28 @@ public class AdminEditController {
                     if (comboBox == null) {
                         comboBox = new ComboBox<>(FXCollections.observableArrayList(options));
                         comboBox.setOnAction(event -> {
+                            if (updating) return;
+
                             Employee employee = getTableView().getItems().get(getIndex());
                             String selectedValue = comboBox.getSelectionModel().getSelectedItem();
-                            assignFunction.accept(employee, selectedValue); // ← вот здесь происходит присвоение
+                            assignFunction.accept(employee, selectedValue);
                             if (!modifyEmployeeList.contains(employee)) {
                                 modifyEmployeeList.add(employee);
                             }
                         });
                     }
 
+                    updating = true;
                     comboBox.getSelectionModel().select(item);
+                    updating = false;
+
                     setGraphic(comboBox);
                 }
             }
         };
     }
+
+
 
     @FXML
     public void saveUserAccessChanged(ActionEvent event) throws IOException {

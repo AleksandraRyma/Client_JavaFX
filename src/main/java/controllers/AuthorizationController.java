@@ -74,6 +74,8 @@ public class AuthorizationController {
             SessionManager.setCurrentUser(authenticatedEmployee);
             SessionManager.setSessionEmpId(authenticatedEmployee.getEmployee_id());
             SessionManager.setSessionRoleId(authenticatedEmployee.getRole_id());
+            SessionManager.setFirstName(authenticatedEmployee.getFirst_name());
+            SessionManager.setLastName(authenticatedEmployee.getLast_name());
             if(authenticatedEmployee.getRole_id() == 1)
             {
                 loader.setLocation(getClass().getResource("/adminHome.fxml"));

@@ -38,12 +38,7 @@
                 <Font size="15.0" />
             </font>
         </Button>
-        <Button fx:id="evaluateFinBtn" layoutX="376.0" layoutY="264.0" mnemonicParsing="false" onAction="#returnAuthorization" prefHeight="58.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Оценить финансовые показатели" textAlignment="CENTER" textFill="WHITE" wrapText="true">
-            <font>
-                <Font size="15.0" />
-            </font>
-        </Button>
-        <Button fx:id="reportBtn" layoutX="118.0" layoutY="352.0" mnemonicParsing="false" onAction="#returnAuthorization" prefHeight="58.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Сформировать отчет итоговой ЗП" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+        <Button fx:id="evaluateFinBtn" layoutX="376.0" layoutY="264.0" mnemonicParsing="false" onAction="#goToFinanceCharts" prefHeight="58.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Оценить финансовые показатели" textAlignment="CENTER" textFill="WHITE" wrapText="true">
             <font>
                 <Font size="15.0" />
             </font>
@@ -53,7 +48,7 @@
                 <Font size="15.0" />
             </font>
         </Button>
-      <Button fx:id="seeEmployeeBtn" layoutX="118.0" layoutY="435.0" mnemonicParsing="false" onAction="#goToSeeSortFilterFindEmployee" prefHeight="58.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Просмотреть данные сотрудников" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Button fx:id="seeEmployeeBtn" layoutX="118.0" layoutY="352.0" mnemonicParsing="false" onAction="#goToSeeSortFilterFindEmployee" prefHeight="58.0" prefWidth="198.0" style="-fx-background-color: #523633;" text="Просмотреть данные сотрудников" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font size="15.0" />
          </font>
